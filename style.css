@@ -1,0 +1,21 @@
+body{
+    background-color:antiquewhite;
+}
+
+#race h2,p{
+text-align: center;
+}
+
+#typed-text, #start-btn {
+    margin: auto;
+    display: block;
+}
+
+#typed-text{
+    width: 250px;
+    height: 30px;
+}
+
+.status{
+    text-align: center;
+}
