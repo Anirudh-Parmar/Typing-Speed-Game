@@ -18,50 +18,38 @@ const sentances = ['The bathroom is in the main house and the owners of the sink
 
     // initialised timer
     let timer;
+    let clock;
+    let timepassed = 0;
+
     userInput.addEventListener('keypress', handleUserTyping)
     userInput.addEventListener('keyup',handleUserStopsTyping)
 
     function handleUserTyping(e){
-      clearInterval(timer)
-      Status.innerHTML = 'Typing'
+
+      if (!clock) {
+        clock = setInterval(() => {
+          timepassed += 1;
+          displayTimer.innerHTML = `Time: ${Math.floor(timepassed / 60)}:${timepassed % 60}s`;
+        }, 1000);
+    
+        
+      } 
+      
+      Status.innerHTML = 'Typing';
+      clearTimeout(timer)
     }
 
     function handleUserStopsTyping(e){
-      clearTimeout(timer)
+      clearInterval(clock)
+      clock =  null ;
+
       timer = setTimeout(() => {
         Status.innerHTML = 'All done typing!'
       }, 1000);
     }
 
 
-  let correctText = '';
-  function typingCheck(){
-    let wrongText = '';
-     if(userInput.value){
-      for (let i = 0; i < sentances[sentNum].length; i++) {
-         const originalText = sentances[sentNum]
-         const typedText = userInput.value 
-         if (originalText[i] === typedText) {
-          correctText += typedText
-          targetText.style.background = 'green'
-        }else{
-          wrongText += typedText
-          targetText.style.background = 'red'
-        }
-      }
-      }
-  }
-
-  typingCheck() ? typingCheck(): typingSpeed()
 
 
-  function typingSpeed(){
-   let score = userInput.value / 5 
-
-   let WPM = score / timePassed
-
-   displayGameResult.textContent = correctText
-
-  }
 
   
