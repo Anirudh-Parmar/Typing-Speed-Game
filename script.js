@@ -4,6 +4,31 @@ const targetText = document.querySelector('#target-text');
 const raceStartBtn = document.querySelector('#start-btn');
 const displayGameResult = document.querySelector('.displayResult')
 const Status = document.querySelector('.status')
+const ResetBtn = document.querySelector('.reset')
+
+ResetBtn.addEventListener('click',()=>{
+  correctWords = 0;
+  wrongWords = 0;
+  timepassed = 0;
+  wordsTyped = 0;
+  isTyping = false;
+
+  userInput.value = ''
+  userInput.style.color = 'black';
+
+  clearInterval(clock);
+  clearTimeout(timer);
+  clock = null;
+  timer = null;
+
+  displayTimer.innerHTML = 'Time: 0:00';
+
+  Status.innerHTML = '';
+  displayGameResult.textContent = '';
+
+  sentNum = Math.floor(Math.random() * sentances.length);
+  targetText.textContent = sentances[sentNum];
+})
 
 const sentances = ['The bathroom is in the main house and the owners of the sink are embarrassed. Of course, Baltimores money stays in Ohio',
     'I live in a one story, so I will just bite a can of peas. I dont have my own phone, so I will just watch the news. I forgot my flashdrive, so I will just read a phone-book. I want a pie, so I will sleep outside tonight.',

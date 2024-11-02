@@ -1,9 +1,10 @@
 body{
-    background-color:antiquewhite;
+    background-color:#31511E;
 }
 
 #race h2,p{
 text-align: center;
+color: #1A1A19;
 }
 
 #typed-text, #start-btn {
@@ -11,11 +12,32 @@ text-align: center;
     display: block;
 }
 
+
 #typed-text{
     width: 250px;
     height: 30px;
+    border-radius: 10px;
+    text-align:center;
 }
 
-.status{
+.status,#timer,#target-text{
     text-align: center;
+    color: #F6FCDF;
+}
+
+.displayResult{
+    position: relative;
+    top: 10px;
+    color: #F6FCDF
+}
+
+.reset{
+    background-color: #859F3D;
+    color: #F6FCDF;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 15px;
 }
