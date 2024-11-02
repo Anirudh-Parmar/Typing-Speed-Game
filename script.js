@@ -9,26 +9,30 @@ const sentances = ['The bathroom is in the main house and the owners of the sink
     'I live in a one story, so I will just bite a can of peas. I dont have my own phone, so I will just watch the news. I forgot my flashdrive, so I will just read a phone-book. I want a pie, so I will sleep outside tonight.',
     'I want a rubber-band, because Frank went to the store today. I lost my toe watch, so I will just eat a sauce car.']
 
-    let sentNum= Math.floor(Math.random()*(2+1))+1
+    let sentNum= Math.floor(Math.random()*sentances.length)
     
     // initialised timer
     let timer;
     let clock;
     let timepassed = 0;
+    let wordsTyped = 0;
+    let isTyping = false;
     
     targetText.textContent = sentances[sentNum]
     
     userInput.addEventListener('keypress', handleUserTyping)
     userInput.addEventListener('keyup',handleUserStopsTyping)
+    
+  
 
     function handleUserTyping(e){
-
+      
       if (!clock) {
         clock = setInterval(() => {
           timepassed += 1;
           displayTimer.innerHTML = `Time: ${Math.floor(timepassed / 60)}:${timepassed % 60}s`;
         }, 1000);
-    
+        isTyping = true;
         
       } 
       
@@ -37,26 +41,48 @@ const sentances = ['The bathroom is in the main house and the owners of the sink
     }
 
     function handleUserStopsTyping(e){
-      clearInterval(clock)
-      clock =  null ;
-
-      timer = setTimeout(() => {
-        Status.innerHTML = 'All done typing!'
-      }, 1000);
+      if (isTyping) {
+        timer = setTimeout(() => {
+            Status.innerHTML = 'All done typing!';
+            calculateWPM();
+            clearInterval(clock);
+            clock = null;
+            isTyping = false;
+        }, 1000);
     }
+    }
+
+      //Calculate typing speed in words per minute (WPM) and display progresss and accuracy
+
+      function calculateWPM(){
+      wordsTyped = userInput.value.trim().split(" ").length
+
+      const WPM = Math.round((wordsTyped/timepassed) * 60 )
+
+      displayGameResult.textContent = `Correctly typed words: ${correctWords} |
+  Incorrectly typed words: ${wrongWords} |
+  Typing Speed: ${WPM} WPM`;
+
+      }
 
     // check user input
 
     
     userInput.addEventListener('input',checkUserInput)
+
+
+      //Track Progress and Accuracy
+      //Track how many characters the user typed correctly vs. incorrectly.
+    let correctWords = 0;
+    let wrongWords = 0;
     
     function checkUserInput(e){
       let originalSentance = sentances[sentNum]
       let typedText = e.target.value
-      let correctWords = 0;
-      let wrongWords = 0;
-      //Track Progress and Accuracy
-      //Track how many characters the user typed correctly vs. incorrectly.
+
+      correctWords = 0;
+      wrongWords = 0; 
+    
         
         for (let i = 0; i < typedText.length; i++) {
   
@@ -74,14 +100,8 @@ const sentances = ['The bathroom is in the main house and the owners of the sink
          if (typedText.length === 0) {
          userInput.style.color = 'black';
          }
-         displayGameResult.textContent = `
-         Correctly typed words: ${correctWords}
-         Incorrectly typed words: ${wrongWords}
-         WPM: ${}
-         `
       }
 
-      //Calculate typing speed in words per minute (WPM).
 
 
 
