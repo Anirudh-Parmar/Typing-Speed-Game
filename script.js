@@ -48,6 +48,40 @@ const sentances = ['The bathroom is in the main house and the owners of the sink
       }, 1000);
     }
 
+    // check user input
+
+    userInput.addEventListener('input',checkUserInput)
+
+    // why not iterate over ogSent.length , why over typedtext.lenght
+    //Ans: Iterating over typedText.length instead of originalSentance.length allows us to check only the characters the user has typed so far
+
+    function checkUserInput(e){
+      let originalSentance = sentances[sentNum]
+      let typedText = e.target.value; 
+        
+        for (let i = 0; i < typedText.length; i++) {
+          // DRY same mistake : ogSent[i] againt overall typed text , typedtext[i] against ogSent[i]
+          if (typedText[i] === originalSentance[i]) {
+            userInput.style.color = 'green';
+            //why use userinput but not typedtext to change the color of
+            //Ans : Using userInput to change the color directly targets the HTML input field where the user types, making it straightforward to apply styling (like color) to the entire text within the input box.
+          }else{
+            userInput.style.color = 'red';
+           break;  // Stop checking further characters , if there's a mismatch
+           // why bother using break at all
+           //Ans: Using break in this context can be helpful to stop further checks once an incorrect character is detected
+          }
+        }
+
+        //never even thought about this case
+         // If user deletes characters, reset color back to default (e.g., black)
+         if (typedText.length === 0) {
+         userInput.style.color = 'black';
+         }
+
+      
+      }
+
 
 
 
