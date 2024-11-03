@@ -104,9 +104,6 @@ const sentances = ['The bathroom is in the main house and the owners of the sink
     function checkUserInput(e){
       let originalSentance = sentances[sentNum]
       let typedText = e.target.value
-
-      correctWords = 0;
-      wrongWords = 0; 
     
         
         for (let i = 0; i < typedText.length; i++) {
